@@ -4,8 +4,8 @@ WORKINGDIR='/Users/iorch/mxabierto/rp-pd'
 CURRENT_DATA=${WORKINGDIR}'/current'
 TEMPORARY=${WORKINGDIR}'/tmp'
 DOWNLOADED=${WORKINGDIR}'/datasets'
-RDATA=${WORKINGDIR}'/data'
-RSCRIPTS='/Users/iorch/mxabierto/rp-pd'
+RDATA='/Users/iorch/mxabierto/DashboardProsperaDigital/data'
+RSCRIPTS='/Users/iorch/mxabierto/DashboardProsperaDigital/crons'
 
 
 if [ -f ${CURRENT_DATA}/messages.csv ]; then
@@ -38,7 +38,6 @@ LINES_MESSAGES=$(( `wc -l < ${CURRENT_DATA}/messages.csv`-1 ))
 cp ${DOWNLOADED}/messages.csv ${TEMPORARY}/messages.csv
 cat ${CURRENT_DATA}/messages.csv | tail -n ${LINES_MESSAGES} >> ${TEMPORARY}/messages.csv
 mv ${TEMPORARY}/messages.csv  ${CURRENT_DATA}/messages.csv
-
 fi
 echo 'messages done'
 
@@ -66,5 +65,9 @@ echo 'runs done'
 cp ${CURRENT_DATA}/*.csv ${RDATA}/
 
 cd ${RSCRIPTS}
+
+./runs.R
+./contacts.R
+./pre_pars.R
 
 
