@@ -136,6 +136,7 @@ class Get(object):
                 dfList.append(df)
                 p += 1
             except KeyError:
+                print('KeyError')
                 break
 
         # Append dataframes in a single one

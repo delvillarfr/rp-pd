@@ -5,6 +5,7 @@ CURRENT_DATA=${WORKINGDIR}'/current'
 TEMPORARY=${WORKINGDIR}'/tmp'
 DOWNLOADED=${WORKINGDIR}'/datasets'
 RDATA=${WORKINGDIR}'/data'
+RSCRIPTS='/Users/iorch/mxabierto/rp-pd'
 
 if [ -f ${CURRENT_DATA}/contacts.csv ]; then
 c_date=`head -2 ${CURRENT_DATA}/contacts.csv|awk -F, '{for(i=1;i<=NF;i++){ if($i~"201[6-9]"){print i} } }'|tail -1`
@@ -74,3 +75,9 @@ head -1 ${CURRENT_DATA}/runs.csv > ${CURRENT_DATA}/runs.csv
 tail -n+2 ${TEMPORARY}/runs.csv | sort -t, -k${r_date}  -ur >> ${CURRENT_DATA}/runs.csv
 fi
 echo 'runs done'
+
+cp ${CURRENT_DATA}/*.csv ${RDATA}/
+
+cd ${RSCRIPTS}
+
+

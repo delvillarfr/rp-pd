@@ -1,4 +1,4 @@
-#/usr/bin env python
+#!/usr/bin env python
 import download.get as get
 import sys
 
