@@ -7,11 +7,7 @@ DOWNLOADED=${WORKINGDIR}'/datasets'
 RDATA=${WORKINGDIR}'/data'
 RSCRIPTS='/Users/iorch/mxabierto/rp-pd'
 
-if [ -f ${CURRENT_DATA}/contacts.csv ]; then
-c_date=`head -2 ${CURRENT_DATA}/contacts.csv|awk -F, '{for(i=1;i<=NF;i++){ if($i~"201[6-9]-"){print i} } }'|tail -1`
-AFTER_CONTACTS=`head -2 ${CURRENT_DATA}/contacts.csv | awk -F, -v mon="$c_date" '{print $mon}' | tail -n 1`
-echo ${AFTER_CONTACTS}
-fi
+
 if [ -f ${CURRENT_DATA}/messages.csv ]; then
 m_date=`head -2 ${CURRENT_DATA}/messages.csv|awk -F, '{for(i=1;i<=NF;i++){ if($i~"201[6-9]-"){print i} } }'|tail -1`
 AFTER_MESSAGES=`head -2 ${CURRENT_DATA}/messages.csv | awk -F, -v mon="$m_date" '{print $mon}' | tail -n 1`
@@ -29,18 +25,10 @@ echo ${AFTER_RUNS}
 fi
 
 
-python ./run.py c=${AFTER_CONTACTS} m=${AFTER_MESSAGES} f=${AFTER_FLOWS} r=${AFTER_RUNS}
+python ./run.py m=${AFTER_MESSAGES} f=${AFTER_FLOWS} r=${AFTER_RUNS}
 echo 'query finished'
 
-if [ ! -f ${CURRENT_DATA}/contacts.csv ]; then
 cp ${DOWNLOADED}/contacts.csv ${CURRENT_DATA}/contacts.csv
-else
-LINES_CONTACTS=$(( `wc -l < ${CURRENT_DATA}/contacts.csv`-1 ))
-cp ${DOWNLOADED}/contacts.csv ${TEMPORARY}/contacts.csv
-cat ${CURRENT_DATA}/contacts.csv | tail -n ${LINES_CONTACTS} >> ${TEMPORARY}/contacts.csv
-mv ${TEMPORARY}/contacts.csv  ${CURRENT_DATA}/contacts.csv
-
-fi
 echo 'contacs done'
 
 if [ ! -f ${CURRENT_DATA}/messages.csv ]; then
