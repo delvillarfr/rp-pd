@@ -38,8 +38,8 @@ else
 LINES_CONTACTS=$(( `wc -l < ${CURRENT_DATA}/contacts.csv`-1 ))
 cp ${DOWNLOADED}/contacts.csv ${TEMPORARY}/contacts.csv
 cat ${CURRENT_DATA}/contacts.csv | tail -n ${LINES_CONTACTS} >> ${TEMPORARY}/contacts.csv
-head -1 ${TEMPORARY}/contacts.csv > ${CURRENT_DATA}/contacts.csv
-tail -n+2 ${TEMPORARY}/contacts.csv | sort -t, -k${c_date} -ur >> ${CURRENT_DATA}/contacts.csv
+mv ${TEMPORARY}/contacts.csv  ${CURRENT_DATA}/contacts.csv
+
 fi
 echo 'contacs done'
 
@@ -49,8 +49,8 @@ else
 LINES_MESSAGES=$(( `wc -l < ${CURRENT_DATA}/messages.csv`-1 ))
 cp ${DOWNLOADED}/messages.csv ${TEMPORARY}/messages.csv
 cat ${CURRENT_DATA}/messages.csv | tail -n ${LINES_MESSAGES} >> ${TEMPORARY}/messages.csv
-head -1 ${TEMPORARY}/messages.csv > ${CURRENT_DATA}/messages.csv
-tail -n+2 ${TEMPORARY}/messages.csv | sort -t, -k${m_date} -ur  >> ${CURRENT_DATA}/messages.csv
+mv ${TEMPORARY}/messages.csv  ${CURRENT_DATA}/messages.csv
+
 fi
 echo 'messages done'
 
@@ -60,8 +60,7 @@ else
 LINES_FLOWS=$(( `wc -l < ${CURRENT_DATA}/flows.csv`-1 ))
 cp ${DOWNLOADED}/flows.csv ${TEMPORARY}/flows.csv
 cat ${CURRENT_DATA}/flows.csv | tail -n ${LINES_FLOWS} >> ${TEMPORARY}/flows.csv
-head -1 ${TEMPORARY}/flows.csv > ${CURRENT_DATA}/flows.csv
-tail -n+2 ${TEMPORARY}/flows.csv | sort -t, -k${f_date} -ur >> ${CURRENT_DATA}/flows.csv
+mv ${TEMPORARY}/flows.csv  ${CURRENT_DATA}/flows.csv
 fi
 echo 'flows done'
 
@@ -70,9 +69,9 @@ cp ${DOWNLOADED}/runs.csv ${CURRENT_DATA}/runs.csv
 else
 LINES_RUNS=$(( `wc -l < ${CURRENT_DATA}/runs.csv`-1 ))
 cp ${DOWNLOADED}/runs.csv ${TEMPORARY}/runs.csv
-cat ${CURRENT_DATA}/runs.csv | tail -n ${LINES_FLOWS} >> ${TEMPORARY}/runs.csv
+cat ${CURRENT_DATA}/runs.csv | tail -n ${LINES_RUNS} >> ${TEMPORARY}/runs.csv
 head -1 ${TEMPORARY}/runs.csv > ${CURRENT_DATA}/runs.csv
-tail -n+2 ${TEMPORARY}/runs.csv | sort -t, -k${r_date}  -ur >> ${CURRENT_DATA}/runs.csv
+mv ${TEMPORARY}/runs.csv  ${CURRENT_DATA}/runs.csv
 fi
 echo 'runs done'
 
