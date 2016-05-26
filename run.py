@@ -7,21 +7,27 @@ def get_all(after):
   print(after)
   inst = get.GetFields()
   inst.export_fields()
+  print("Fields Download")
 
   inst = get.GetGroups()
   inst.export_groups()
-
-  inst = get.GetMessages()
-  inst.export_messages(parameters=after['after_messages'])
+  print("Groups Download")
 
   inst = get.GetContacts()
   inst.export_contacts(parameters=after['after_contacts'])
+  print("Contacts Download")
 
   inst = get.GetFlows()
   inst.export_flows(parameters=after['after_flows'])
+  print("Flows Download")
+
+  inst = get.GetMessages()
+  inst.export_messages(parameters=after['after_messages'])
+  print("Messages Download")
 
   inst = get.ExportRuns()
   inst.export_runs(parameters=after['after_runs'])
+  print("Runs Download")
 
 
 after = {}
