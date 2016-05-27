@@ -39,11 +39,15 @@ NFIELDS=`head -1 ${DOWNLOADED}/messages.csv| awk -F, '{print NF}'`
 if [ ${NFIELDS} -eq 15 ]; then
 awk -F, '{print $1","$2","$3","$4","$5","$6","$7","$10","$11","$12","$13","$14","$15}' ${DOWNLOADED}/messages.csv | \
     > ${TEMPORARY}/messages.csv
+echo 15
+head -1 ${TEMPORARY}/messages.csv
 elif [ ${NFIELDS} -eq 14 ]; then
 awk -F, '{print $1","$2","$3","$4","$5","$6","$7","$9","$10","$11","$12","$13","$14"}' ${DOWNLOADED}/messages.csv | \
     > ${TEMPORARY}/messages.csv
+head -1 ${TEMPORARY}/messages.csv
 else
 cp ${DOWNLOADED}/messages.csv ${TEMPORARY}/messages.csv
+head -1 ${TEMPORARY}/messages.csv
 fi
 cat ${CURRENT_DATA}/messages.csv | tail -n ${LINES_MESSAGES} >> ${TEMPORARY}/messages.csv
 mv ${TEMPORARY}/messages.csv  ${CURRENT_DATA}/messages.csv
@@ -77,6 +81,8 @@ cd ${RSCRIPTS}
 
 ./runs.R
 ./contacts.R
+./zipruns.R
+./Mapa.R
 ./pre_pars.R
 
 
