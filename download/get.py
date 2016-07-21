@@ -131,12 +131,12 @@ class Get(object):
         while True:
             params = parameters.copy()
             params.update({'page':p})
-
             try:
                 df = self.to_df(params)
                 dfList.append(df)
                 p += 1
             except KeyError:
+                print('KeyError')
                 break
 
         # Append dataframes in a single one
@@ -181,9 +181,10 @@ class Get(object):
         rows = df.loc[df['uuid']==uuid, 'name']
 
         # Policy: if there are many rows, return first value
-        return rows.iloc[0]
-
-
+        try:
+            return rows.iloc[0]
+        except IndexError:
+            return('')
 
 
 class GetRuns(Get):
@@ -197,7 +198,6 @@ class GetRuns(Get):
             runs get request on RapidPro's API with the appropriate authentication commands.
             param is a dict of query parameters to be specified.
         '''
-
         r = requests.get('https://api.rapidpro.io/api/v1/runs.json',
                                         headers = {'Authorization': rp_api},
                                         params = parameters)
@@ -614,7 +614,6 @@ class ExportRuns(Get):
                 cannot handle
             (v)saves DataFrame to a .csv
         '''
-
         df = self.append_df(parameters=parameters)
         df.to_csv(root + raw_runs + 'runs.csv', index=False, encoding='utf-8')
 
@@ -850,7 +849,7 @@ class GetMessages(Get):
         return pd.DataFrame.from_records(flatDicts)
 
 
-    def export_messages(self, parameters={}):
+    def export_messages(self, parameters={'after': '2016-05-18T00:00:00.000'}):
         '''
             (i)downloads the messages,
             (ii)flattens and assembles the dictionaries,
