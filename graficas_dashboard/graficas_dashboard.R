@@ -513,7 +513,13 @@ ggsave("/Users/Ana1/Desktop/rRate2.pdf", width=6, height=3.6)
 
 ### Users Interaction graph ###
 base_graf<-arrange(base_graf, date)
-base_graf<-mutate(base_graf, beneficiarias_m=(beneficiarias+lag(beneficiarias))/2)
+base_graf<-mutate(base_graf, beneficiarias_m=(beneficiarias+
+                                              lag(beneficiarias)+
+                                              lag(beneficiarias,k=2)+
+                                              lag(beneficiarias, k=3)+
+                                              lag(beneficiarias, k=4)+
+                                              lag(beneficiarias, k=5)+
+                                              lag(beneficiarias, k=6))/7)
 
 ggplot(base_graf, aes(x=date, y=beneficiarias_m))+
   geom_line(colour="#56B4E9")+scale_x_date(labels = date_format("%m/%Y"))+
